@@ -7,12 +7,28 @@ from dirtyfields import DirtyFieldsMixin
 from statistics import mean, stdev
 from math import tanh
 
-from problems.models import Problem
-
 from .helpers import gen_file_name, allowed_langs
 
 
-class GolfProblem(Problem):
+class GolfProblem(models.Model):
+    title = models.CharField(max_length=256)
+    text = models.TextField(max_length=2000)
+    base_score = models.IntegerField(default=10)
+    start = models.DateTimeField(default=now)
+    end = models.DateTimeField(default=now)
+
+    def __str__(self):
+        return self.title
+
+    def is_active(self):
+        return (self.start <= now() and now() <= self.end)
+
+    def is_past(self):
+        return self.end < now()
+
+    def is_upcoming(self):
+        return self.start > now()
+
     def leader(self):
         """
         Returns the user model that has a solution with the lowest character

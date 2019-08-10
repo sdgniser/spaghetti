@@ -5,24 +5,31 @@ from django.urls import reverse
 from django.utils.timezone import now
 from django.views.generic import DetailView, ListView
 
-from problems.models import *
-from problems.views import *
-
 from .forms import *
 from .models import *
 
-
-class ActiveGolfProblemList(ActiveProblemList):
+class ProblemList(ListView):
     model = GolfProblem
     template_name = 'golf_prob_list.html'
+    all_states = ['active', 'future', 'past']
+    state = 'active'
+    context_object_name = ''
 
-class PastGolfProblemList(PastProblemList):
-    model = GolfProblem
-    template_name = 'golf_prob_list.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['all_states'] = self.all_states
+        context['state'] = self.state
+        return context
 
-class FutureGolfProblemList(FutureProblemList):
-    model = GolfProblem
-    template_name = 'golf_prob_list.html'
+class ActiveGolfProblemList(ProblemList):
+    state = 'active'
+
+class PastGolfProblemList(ProblemList):
+    state = 'past'
+
+class FutureGolfProblemList(ProblemList):
+    state = 'future'
+
 
 def problem_detail(request, pid):
     """
