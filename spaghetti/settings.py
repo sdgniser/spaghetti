@@ -30,11 +30,11 @@ DEBUG = True
 ALLOWED_HOSTS = ['0.0.0.0']
 
 # Deployment checklist
-SECURE_CONTENT_TYPE_NOSNIFF = True
-SECURE_BROWSER_XSS_FILTER = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-X_FRAME_OPTIONS = 'DENY'
+# SECURE_CONTENT_TYPE_NOSNIFF = True
+# SECURE_BROWSER_XSS_FILTER = True
+# SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True
+# X_FRAME_OPTIONS = 'DENY'
 
 
 # Application definition
@@ -50,7 +50,6 @@ INSTALLED_APPS = [
     # Custom
     'users.apps.UsersConfig',
     'golf.apps.GolfConfig',
-    'problems.apps.ProblemsConfig',
     #'ctf.apps.CtfConfig',
 ]
 

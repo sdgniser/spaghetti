@@ -24,11 +24,25 @@ class ProblemList(ListView):
 class ActiveGolfProblemList(ProblemList):
     state = 'active'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['probs'] = self.model.objects.filter(start__lt = now(),
+                                                     end__gt = now())
+        return context
+
 class PastGolfProblemList(ProblemList):
     state = 'past'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['probs'] = self.model.objects.filter(end__lt = now())
+        return context
 
 class FutureGolfProblemList(ProblemList):
     state = 'future'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['probs'] = self.model.objects.filter(start__gt = now())
+        return context
 
 
 def problem_detail(request, pid):
