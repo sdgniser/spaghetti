@@ -16,6 +16,8 @@ allowed_langs = (
     ('basic', 'BASIC'),
     ('c', 'C'),
     ('cpp', 'C++'),
+    ('boost', 'C++ with Boost'),
+    ('stl', 'C++ with Standard Template Library'),
     ('csharp', 'C#'),
     ('clojure', 'Clojure'),
     ('cobol', 'COBOL'),
@@ -46,6 +48,9 @@ allowed_langs = (
     ('powershell', 'PowerShell'),
     ('py2', 'Python 2'),
     ('py3', 'Python 3'),
+    ('numpy', 'Python with Numpy'),
+    ('scipy', 'Python with SciPy'),
+    ('othpy', 'Python with Other Libraries'),
     ('r', 'R'),
     ('ruby', 'Ruby'),
     ('rust', 'Rust'),
@@ -56,3 +61,5 @@ allowed_langs = (
     ('tur', 'Turing'),
     ('wolf', 'WolframScript'),
 )
+
+langs = [lang[1] for lang in allowed_langs]

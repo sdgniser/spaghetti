@@ -16,13 +16,15 @@
   <body>
     <header>
       <h1>Spaghetti</h1>
-      {% if request.user.is_authenticated %}
       <p>
-      Hello, <a href="{% url 'users:profile' request.user.username %}">{{request.user.username}}</a>! Is your code short enough?
-      </p>
+      {% if request.user.is_authenticated %}
+      Hello, <a href="{% url 'users:profile' request.user.username %}">
+        {{request.user.first_name}}</a>! Welcome to Spaghetti: a platform for 
+      hosting coding contests.
       {% else %}
-      <p>NISER Coding Club's platform for hosting coding contests.</p>
+      NISER Coding Club's platform for hosting coding contests. 
       {% endif %}
+      <a href="{% url 'golf:rules' %}">Rules</a>.
 
       <nav>
         <ul>

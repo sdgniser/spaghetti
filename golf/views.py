@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.utils.timezone import now
 from django.views.generic import DetailView, ListView
 
+from .helpers import langs
 from .forms import *
 from .models import *
 
@@ -27,21 +28,23 @@ class ActiveGolfProblemList(ProblemList):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['probs'] = self.model.objects.filter(start__lt = now(),
-                                                     end__gt = now())
+                           end__gt = now()).order_by('end')
         return context
 
 class PastGolfProblemList(ProblemList):
     state = 'past'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['probs'] = self.model.objects.filter(end__lt = now())
+        context['probs'] = self.model.objects.filter(end__lt \
+                           = now()).order_by('end')
         return context
 
 class FutureGolfProblemList(ProblemList):
     state = 'future'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['probs'] = self.model.objects.filter(start__gt = now())
+        context['probs'] = self.model.objects.filter(start__gt \
+                           = now()).order_by('start')
         return context
 
 
@@ -129,3 +132,6 @@ def user_leader_view(request):
     """
     users = get_user_model().objects.all().order_by('-score')
     return render(request, 'user_leader.html', {'users': users})
+
+def rules_view(request):
+    return render(request, 'rules.html', {'langs': langs})

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Rules
+{% endblock %}
+
+{% block content %}
+<h2>Rules for Golfing</h2>
+
+<p>Spaghetti is NISER Coding Club's platform for conducting (recreational)
+programming contests. Currently, Spaghetti only supports Code Golf.
+
+
+<h3>Rules for Code Golf</h3>
+<ol>
+  <li>
+    Solutions that have the lowest character count win (duh).
+  </li>
+
+  <li>
+    For challenges that require an input, it can either be taken from
+    the standard input, or can be passed to a function as an argument.
+    Outputs can be return value to a function, or be printed to the console.
+  </li>
+
+  <li>
+    Almost all standard programming languages are allowed. Esolangs and
+    languages made specifically for golfing are forbidden.
+  </li>
+
+  <li>
+    Loopholes that are '<a href="https://codegolf.meta.stackexchange.com/questions/1061/loopholes-that-are-forbidden-by-default">forbidden by default</a>' on <a href="https://codegolf.stackexchange.com/">Code Golf Stack Exchange</a>,
+    are forbidden on Spaghetti. These include, but are not limited to:
+    interpreting the challenge too literally, fetching result/code from an
+    external source, and using made up languages designed specifically for the
+    challenge.
+  </li>
+</ol>
+
+<h4>Allowed Languages</h4>
+The following languages are currently supported: 
+<ol>
+  {% for lang in langs %}
+  <li>{{ lang }}</li>{% endfor %}.
+</ol>
+{% endblock %}
