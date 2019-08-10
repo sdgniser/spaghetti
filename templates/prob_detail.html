@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ p.title }}
+{% endblock %}
+
+{% block content %}
+<h3>{{ p.title }}</h3>
+
+<ul class="prematter">
+  {% if p.is_active %}
+  <li>Problem open till {{ p.end }}</li>
+
+  {% elif p.is_past %}
+  <li>Problem closed {{ p.end }}</li>
+
+  {% endif %}
+
+  <li>
+    {% if p.leader %}
+    Problem leader: <a href="{% url 'users:profile' p.leader.username %}">{{p.leader}}</a>
+
+    {% else %}
+    There aren't any verified solutions for this problem yet.
+
+    {% endif %}
+  </li>
+
+</ul>
+
+<p class="markdown">
+  <script>let prob_desc = '{{ p.text|escapejs }}';</script>
+</p>
+
+<div>
+  {% if user.is_authenticated %}
+  {% if s_form %}
+  <form enctype="multipart/form-data" method="post">
+    <legend>Submit Your Code Here</legend>
+    {% csrf_token %}
+    {{ s_form.as_p }}
+    <button type="submit">Submit</button>
+  </form>
+
+  {% elif p.is_past %}
+  <p><em>The competition for this problem is already over. Go to the 
+    <a href="{% url 'golf:home' %}">main page</a> for fresh
+    problems.</em></p>
+
+  {% elif repeat_submission %}
+  <p><em>You have already submitted a solution to this problem once. If it is
+    not on the leaderboard, one of our moderators may not have verified it to
+    be working yet.</em></p> 
+
+  {% elif p.is_upcoming %}
+  <p><em>You should not be seeing this.</em><p>
+
+  {% endif %}
+
+  {% else %}
+  <p><a href="{% url 'users:login' %}">Log In</a> to submit a solution.</p>
+
+  {% endif %}
+</div>
+
+<p><a href="{% url 'golf:prob_leader' p.id %}">Click here</a> for this
+problem's leaderboard</p>
+
+{% endblock %}

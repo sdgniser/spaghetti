@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block content %}
+<h2>Login</h2>
+{% if user.is_authenticated %}
+<p>You are already logged in. Go to the <a href="{% url 'golf:home' %}">main page</a> for fresh problems.</p>
+
+{% else %}
+<p>Login to your account to submit your code.</p>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Login</button>
+</form>
+
+{% endif %}
+
+{% endblock %}

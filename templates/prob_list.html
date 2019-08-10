@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ state|title }} Problems
+{% endblock %}
+
+{% block content %}
+
+<h2>Problems</h2>
+
+<ul class="subnav">
+  {% for s in all_states %}
+  <li>
+    {% if s == state %}
+    <strong>{{ s|title }}</strong>
+    {% else %}
+    <a href="{% url 'golf:'|add:s %}">
+      {{ s|title }}
+    </a>
+    {% endif %}
+  </li>
+
+  {% endfor %}
+</ul>
+
+{% if probs %}
+<ul>
+  {% for prob in probs %}
+  <li>
+    {% if state == 'future' %}
+    <em>Undisclosed Problem #{{ forloop.counter }}</em>
+    (Opens {{ prob.start }})
+
+    {% else %}
+    <a href="{% url 'golf:problem' prob.id %}">
+    {{ prob.title }}</a> 
+
+    {% if state == 'active' %}
+    (Open till {{ prob.end }})
+    {% elif state == 'past' %}
+    (Closed {{ prob.end }})
+
+    {% endif %}
+    {% endif %}
+  </li>
+
+  {% endfor %}
+</ul>
+
+{% else %}
+<p>No {{ state }} problems here.</p>
+
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block content %}
+
+<h2>Golfing Problems</h2>
+
+{% if p_list %}
+<p>Recently added golfing problems are listed here. Follow the links
+for a full description, and to submit your code.</p>
+<ol>
+
+  {% for p in p_list %}
+  <li>
+    <a href="{% url 'golf:problem' p.id %}">{{ p.title }}</a>
+  </li>
+
+  {% endfor %}
+</ol>
+
+{% else %}
+<p>There are no problems open in the competition now. Check back later!</p>
+
+<h2>Capture the Flag</h2>
+
+{% endif %}
+
+{% endblock %}

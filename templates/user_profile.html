@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ user.first_name }} {{ user.last_name }}
+{% endblock %}
+
+{% block content %}
+<h3>{{ user.first_name }} {{ user.last_name }}</h3>
+
+<p>
+  {{ user.bio }}
+
+  {% if is_logged_in %}
+  <a href="{% url 'users:update' %}">Edit Profile</a>
+  {% endif %}
+</p>
+
+<h4>Golfing Stats</h4>
+<ul>
+  {% if p_list %}
+  <li><strong>Characters per Solution: </strong>{{ avg_count }}</li>
+  <li><strong>Total Character Count: </strong>{{ total_count }}</li>
+
+  <li>
+    <strong>Problems Solved:</strong>
+    <ul class="comma">
+      {% for p in p_list %}
+      <li><em><a href="{% url 'golf:problem' p.id %}">
+            {{ p.title }}</a></em></li> {% endfor %}
+    </ul>
+  </li>
+
+  <li>
+    <strong>Programming Languages Used:</strong>
+    <ul class="comma">
+      {% for l in langs %}
+      <li>{{ l }}</li>
+      {% endfor %}
+    </ul>
+    
+    {% else %}
+    <li>{{ user.first_name }} has not solved any problems yet.
+    {% endif %}
+  </li>
+  
+</ul>
+
+{% endblock %}

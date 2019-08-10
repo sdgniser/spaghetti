@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Sign Up
+{% endblock %}
+
+{% block content %}
+<h2>Sign Up</h2>
+{% if user.is_authenticated %}
+<p>You are already logged in. Go to the <a href="{% url 'golf:home' %}">main page</a> for fresh problems.</p>
+
+{% else %}
+<p>Sign up for a new account to submit your code and compete in the
+competition.</p>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Sign Up</button>
+</form>
+
+{% endif %}
+{% endblock %}

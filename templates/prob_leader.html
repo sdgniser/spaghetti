@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Leaderboard for {{ prob.title }}
+{% endblock %}
+
+{% block content %}
+
+<h2>Leaderboard for <em>{{ prob.title }}</em></h2>
+<p><a href="{% url 'golf:problem' prob.id %}">Go back to the problem.</a></p> 
+
+{% if solns %}
+<table id="rankings">
+  <tr>
+    <th>Rank</th>
+    <th>Username</th>
+    <th>Full Name</th>
+    <th>Character Count</th>
+    <th>Language</th>
+    {% if not prob.is_active %}<th>Solution</th>{% endif %}
+
+  </tr>
+
+  {% for soln in solns %}
+  <tr>
+    <td>{{ forloop.counter }}</td>
+    <td><a href="{% url 'users:profile' soln.user.username %}">
+        {{ soln.user }}</a></td>
+    <td>{{ soln.user.first_name }} {{ soln.user.last_name }}</td>
+    <td>{{ soln.char_count }}</td>
+    <td>{{ soln.lang }}</td>
+    {% if not prob.is_active %}<td>
+      <a href="{{ soln.code.url }}">Code</a></td>{% endif %}
+
+  </tr>
+  {% endfor %}
+</table>
+
+{% else %}
+<p>There are no verified solutions to this problem yet.</p>
+{% endif %}
+
+{% endblock %}
