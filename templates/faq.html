@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Frequently Asked Questions
+{% endblock %}
+
+{% block content %}
+<h2>Frequently Asked Questions</h2>
+
+<dl>
+  <dt>What is Spaghetti? Why <em>Spaghetti</em>?</dt>
+  <dd>
+    <p>Spaghetti is the name we have given to our tournament platform.</p>
+  
+    <p>I'll let <a href="https://en.wikipedia.org/wiki/Spaghetti_code">
+      Wikipedia</a> explain the why: 
+    <blockquote>
+        Spaghetti code is a pejorative phrase for unstructured and
+        difficult-to-maintain source code. Spaghetti code can be caused by
+        several factors, such as volatile project requirements, lack of
+        programming style rules, and insufficient ability or experience. 
+      </blockquote>
+    </p> 
+  </dd>
+
+  <dt id="insecure">Why is this site 'insecure'?</dt>
+  <dd>
+    <p>Browsers mark this site as insecure because we use a self signed SSL
+    certificate, that has not been signed by a certificate authority (CA).
+    Certificate Authorities require a registered public domain to issue a
+    signature on the certificate, and since we are not hosting this platform on
+    the internet (yet), it is not possible to get our certificate verified.</p>
+
+    <p>The self signed certificate, however, is much more secure than plain
+    HTTP. The communication between your web browser and our server happens
+    over an encrypted channel, and the data is at risk only if someone gets
+    access to our server (or mounts a Man in the Middle attack).</p>
+  </dd>
+
+  
+  <dt>What programming languages/libraries is Spaghetti built on?</dt>
+  <dd>
+    <p>The backend has been written with 
+    <a href="https://www.djangoproject.com/">Django</a> (a Python web
+    framework), and <a href="https://www.postgresql.org/">PostgreSQL</a>. The
+    frontend currently uses 
+    <a href="https://igoradamenko.github.io/awsm.css/">awsm.min</a> for
+    styling.</p> 
+  </dd>
+
+  <dt>I spotted a bug! What do I do?</dt>
+  <dd>
+    <p>Inform us about the bug!</p>
+    <p>Write to us at <a href="mailto:code@niser.ac.in">code@niser.ac.in</a> or
+    <a href="mailto:sdg@niser.ac.in">sdg@niser.ac.in</a> with details of the
+    bug, or open an <a href="https://github.com/sdgniser/spaghetti/issues">
+      issue on GitHub</a>.</p> 
+  </dd>
+
+  <dt>It would be great if X was added to the platform...</dt>
+  <dd>
+    <p>Write to us with details of X at <a href="mailto:code@niser.ac.in">code@niser.ac.in</a> or
+    <a href="mailto:sdg@niser.ac.in">sdg@niser.ac.in</a> or open an 
+    <a href="https://github.com/sdgniser/spaghetti/issues">
+      issue on GitHub</a>.</p> 
+  </dd>
+
+  <dt>I want to contribute to the project! Where do I start?</dt>
+  <dd>
+    <p>There are multiple ways to contribute! If you do not have experience
+    with coding you can help us with testing new features before they are
+    pushed to production. If you want to contribute with code, you can contact
+    us at <a href="mailto:code@niser.ac.in">code@niser.ac.in</a> or 
+    <a href="mailto:sdg@niser.ac.in">sdg@niser.ac.in</a>. We don't have a style
+    guide in place yet, so we would discourage making PRs without informing us
+    about them first.<p>
+  </dd>
+
+</dl>
+
+{% endblock %}

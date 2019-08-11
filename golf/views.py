@@ -135,3 +135,6 @@ def user_leader_view(request):
 
 def rules_view(request):
     return render(request, 'rules.html', {'langs': langs})
+
+def faq_view(request):
+    return render(request, 'faq.html')
