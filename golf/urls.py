@@ -1,12 +1,13 @@
 from django.conf.urls.static import static
 from django.conf import settings
 from django.urls import path, include
+from django.views.generic import RedirectView
 
 from .views import *
 
 app_name = 'golf'
 urlpatterns = [
-    path('', ActiveGolfProblemList.as_view(), name='home'),
+    path('', RedirectView.as_view(pattern_name='golf:active'), name='home'),
     path('active/', ActiveGolfProblemList.as_view(), name='active'),
     path('past/', PastGolfProblemList.as_view(), name='past'),
     path('future/', FutureGolfProblemList.as_view(), name='future'),

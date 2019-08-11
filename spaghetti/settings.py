@@ -24,18 +24,6 @@ SECRET_KEY = '_l__ftu%)%h1(%5w8vbfaj68y(9*2%a7iwydud+m9&u$r1r-7x'
 # with open('path/to/secret_key.txt') as f:
 #     SECRET_KEY = f.read().strip()
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['0.0.0.0']
-
-# Deployment checklist
-# SECURE_CONTENT_TYPE_NOSNIFF = True
-# SECURE_BROWSER_XSS_FILTER = True
-# SESSION_COOKIE_SECURE = True
-# CSRF_COOKIE_SECURE = True
-# X_FRAME_OPTIONS = 'DENY'
-
 
 # Application definition
 
@@ -82,21 +70,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'spaghetti.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'golf',
-        'USER': 'ayush',
-        'HOST': 'localhost',
-        'PORT': '5432'
-    }
-}
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -146,3 +119,5 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 AUTH_USER_MODEL = 'users.CustomUser'
+
+from .local_settings import *
