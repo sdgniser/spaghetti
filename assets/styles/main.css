@@ -43,6 +43,10 @@ ul.comma > li:not(:last-child)::after {
   content: ', ';
 }
 
+ul.errorlist {
+  background: #eae885;
+}
+
 code {
   background: #ddd;
   padding: 0.2rem;

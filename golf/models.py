@@ -56,6 +56,7 @@ class Solution(DirtyFieldsMixin, models.Model):
     # gen_file_name generates a random string of 12 characters. "Security".
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     code = models.FileField(upload_to=gen_file_name)
+    instructions = models.TextField(max_length=300, default='')
     char_count = models.IntegerField()
     sub_time = models.DateTimeField(default=now)
     is_correct = models.BooleanField(default=False)
