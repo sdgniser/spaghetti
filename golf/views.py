@@ -55,6 +55,9 @@ def problem_detail(request, pid):
     """
     prob = GolfProblem.objects.get(id=pid)
 
+    # To keep track of repeat submissions
+    repeat_submission = False
+
     if prob.is_upcoming():
         raise Http404('Problem not out yet.')
 
@@ -96,7 +99,6 @@ def problem_detail(request, pid):
     # Stuff to do for a GET request
     else:
         form = None
-        repeat_submission = False
         # Display a submission form only if the user is authenticated and the
         # problem is active
         if request.user.is_authenticated and prob.is_active():
