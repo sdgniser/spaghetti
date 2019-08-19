@@ -78,9 +78,12 @@ def problem_detail(request, pid):
                 char_count = len(codefile.decode('utf-8', 'strict'))
 
                 # Creating the Solution object
-                Solution.objects.create(prob=prob, user=request.user,
-                        lang=form.cleaned_data['lang'], code=code,
-                        char_count=char_count)
+                Solution.objects.create(prob = prob, 
+                        user = request.user,
+                        lang = form.cleaned_data['lang'], 
+                        code = code,
+                        char_count = char_count,
+                        instructions = form.cleaned_data['instructions'])
              
             # Throws a hissy fit if it doesn't like the uploaded file
             except UnicodeDecodeError:
