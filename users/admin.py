@@ -11,4 +11,8 @@ class CustomUserAdmin(UserAdmin):
     model = CustomUser
     list_display = ('username', 'score')
 
+    fieldsets = UserAdmin.fieldsets + (
+                   ('Code Golf', {'fields': ('score',)}),
+                )
+
 admin.site.register(CustomUser, CustomUserAdmin)
