@@ -7,7 +7,7 @@ from dirtyfields import DirtyFieldsMixin
 from statistics import mean, stdev
 from math import tanh
 
-from .helpers import gen_file_name, allowed_langs
+from .helpers import gen_file_name, allowed_langs, incorrect_reason_options
 
 
 class GolfProblem(models.Model):
@@ -60,6 +60,10 @@ class Solution(DirtyFieldsMixin, models.Model):
     char_count = models.IntegerField()
     sub_time = models.DateTimeField(default=now)
     is_correct = models.BooleanField(default=False)
+
+    is_incorrect = models.BooleanField(default=False)
+    incorrect_reason = models.CharField(max_length=300,
+            choices=incorrect_reason_options, null = True, blank = True)
 
     def __str__(self):
         return str(self.prob) + ' by ' + str(self.user)

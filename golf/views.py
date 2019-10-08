@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.http import HttpResponseRedirect, Http404
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.utils.timezone import now
 from django.views.generic import DetailView, ListView
@@ -57,6 +57,7 @@ def problem_detail(request, pid):
 
     # To keep track of repeat submissions
     repeat_submission = False
+    old_solution = None
 
     if prob.is_upcoming():
         raise Http404('Problem not out yet.')
@@ -106,12 +107,19 @@ def problem_detail(request, pid):
         # problem is active
         if request.user.is_authenticated and prob.is_active():
             form = SolutionForm()
-            if GolfProblem.objects.filter(id=pid, solution__user=request.user):
+
+            try:
+                old_solution = Solution.objects.get(prob__id=pid, 
+                                                         user=request.user)
+            except Solution.DoesNotExist:
+                old_solution = None
+
+            if old_solution:
                 repeat_submission = True
                 form = None
 
     return render(request, 'golf_prob_detail.html', {'p': prob, 's_form': form,
-                    'repeat_submission': repeat_submission,})
+        'repeat_submission': repeat_submission, 'old_solution': old_solution})
 
 def problem_leader_view(request, pid):
     """
@@ -128,6 +136,12 @@ def problem_leader_view(request, pid):
 
     return render(request, 'prob_leader.html', {'prob': prob, 'solns':
         ranked_solutions})
+
+def resubmit_solution(request, pid):
+    old_solution = get_object_or_404(Solution, prob__id=pid, user=request.user)
+    old_solution.delete()
+    return redirect('golf:problem', pid = pid)
+
 
 def user_leader_view(request):
     """

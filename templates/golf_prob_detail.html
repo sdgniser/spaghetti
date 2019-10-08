@@ -48,9 +48,25 @@
     problems.</em></p>
 
   {% elif repeat_submission %}
-  <p><em>You have already submitted a solution to this problem once. If it is
-    not on the leaderboard, one of our moderators may not have verified it to
-    be working yet.</em></p> 
+
+    {% if old_solution.is_correct %}
+    <p>Your solution has been marked correct by a moderator. If you want to
+    submit a better solution, 
+    <a href="{% url 'golf:resubmit' p.id %}">this link</a>
+    will <strong>delete the earlier solution</strong> and take you to a fresh
+    submission form.</p>
+    
+    {% elif old_solution.is_incorrect %}
+    <p>Your solution has been marked incorrect by a moderator because
+    {{old_solution.incorrect_reason}}.
+    <a href="{% url 'golf:resubmit' p.id %}">Click here</a> to
+    submit another solution.</p>
+
+    {% else %}
+    <p>You have already submitted a solution to this problem, it has not been
+    looked at by a moderator yet.</p>
+
+    {% endif %}
 
   {% elif p.is_upcoming %}
   <p><em>You should not be seeing this.</em><p>
