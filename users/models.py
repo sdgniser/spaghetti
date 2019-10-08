@@ -16,7 +16,6 @@ class CustomUser(AbstractUser):
     first_name = models.CharField(max_length=150)
     last_name = models.CharField(max_length=150)
     bio = models.TextField(default='')
-    #score = models.IntegerField(default=0) # ( ͡° ͜ʖ ͡°)
 
     def calc_score(self):
         score = 0
