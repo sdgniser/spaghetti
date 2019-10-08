@@ -146,11 +146,12 @@ def resubmit_solution(request, pid):
 def user_leader_view(request):
     """
     Returns a ranked list of all registered users by thier 'score'.
-    For details about the calculation of score, see Solution::calc_score
 
     """
-    users = get_user_model().objects.all().order_by('-score')
-    return render(request, 'user_leader.html', {'users': users})
+    all_users = get_user_model().objects.all()
+    users_score = [(user, user.calc_score()) for user in all_users]
+    users_score.sort(key=lambda tup: tup[1], reverse = True)
+    return render(request, 'user_leader.html', {'users_score': users_score})
 
 def rules_view(request):
     return render(request, 'rules.html', {'langs': langs})

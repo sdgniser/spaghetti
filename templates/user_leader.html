@@ -18,13 +18,15 @@ Leaderboard
 
   </tr>
 
-  {% for user in users %}
+  {% for u in users_score %}
+  <!-- u is a tuple. first element of the tuple is the user object, the second
+    element is the user's score' -->
   <tr>
     <td>{{ forloop.counter }}</td>
-    <td><a href="{% url 'users:profile' user.username %}">
-        {{ user }}</a></td>
-    <td>{{ user.first_name }} {{ user.last_name }}</td>
-    <td>{{ user.score }}</td>
+    <td><a href="{% url 'users:profile' u.0.username %}">
+        {{ u.0 }}</a></td>
+    <td>{{ u.0.first_name }} {{ u.0.last_name }}</td>
+    <td>{{ u.1 }}</td>
 
   </tr>
   {% endfor %}
