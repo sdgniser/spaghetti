@@ -4,7 +4,8 @@ from .models import *
 
 class SolutionAdmin(admin.ModelAdmin):
     model = Solution
-    list_display = ('__str__', 'lang', 'char_count', 'sub_time', 'is_correct')
+    list_display = ('__str__', 'lang', 'char_count', 'sub_time', 'is_correct',
+            'is_incorrect')
 
 class GolfProblemAdmin(admin.ModelAdmin):
     model = GolfProblem

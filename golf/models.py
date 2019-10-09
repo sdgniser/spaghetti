@@ -62,8 +62,8 @@ class Solution(DirtyFieldsMixin, models.Model):
     is_correct = models.BooleanField(default=False)
 
     is_incorrect = models.BooleanField(default=False)
-    incorrect_reason = models.CharField(max_length=300,
-            choices=incorrect_reason_options, null = True, blank = True)
+    incorrect_reason = models.CharField(max_length=300, null=True, blank=True,
+            verbose_name = 'Solution has been marked incorrect because')
 
     assigned_score = models.IntegerField(default=0)
 

@@ -28,7 +28,7 @@ class ActiveGolfProblemList(ProblemList):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['probs'] = self.model.objects.filter(start__lt = now(),
-                           end__gt = now()).order_by('end')
+                           end__gt = now()).order_by('start')
         return context
 
 class PastGolfProblemList(ProblemList):
