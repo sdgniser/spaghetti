@@ -60,11 +60,12 @@
     <p>Your solution has been marked incorrect by a moderator because
     {{old_solution.incorrect_reason}}.
     <a href="{% url 'golf:resubmit' p.id %}">Click here</a> to
-    submit another solution.</p>
+    submit a different solution.</p>
 
     {% else %}
-    <p>You have already submitted a solution to this problem, it has not been
-    looked at by a moderator yet.</p>
+    <p>Your submission has not been looked at by a moderator yet.
+    <a href="{% url 'golf:resubmit' p.id %}">Submit better solution</a>
+    (WARNING: This will delete the solution you have already submitted).</p>
 
     {% endif %}
 
