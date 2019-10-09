@@ -6,13 +6,6 @@ from .forms import *
 from .models import CustomUser
 
 class CustomUserAdmin(UserAdmin):
-    add_form = CustomUserCreationForm
-    form = CustomUserChangeForm
-    model = CustomUser
-    list_display = ('username', 'score')
-
-    fieldsets = UserAdmin.fieldsets + (
-                   ('Code Golf', {'fields': ('score',)}),
-                )
+    pass
 
 admin.site.register(CustomUser, CustomUserAdmin)

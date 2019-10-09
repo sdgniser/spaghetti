@@ -7,7 +7,7 @@ from dirtyfields import DirtyFieldsMixin
 from statistics import mean, stdev
 from math import tanh
 
-from .helpers import gen_file_name, allowed_langs
+from .helpers import gen_file_name, allowed_langs, incorrect_reason_options
 
 
 class GolfProblem(models.Model):
@@ -52,7 +52,7 @@ class Solution(DirtyFieldsMixin, models.Model):
 
     """
     prob = models.ForeignKey(GolfProblem, on_delete=models.CASCADE)
-    lang = models.CharField(max_length=16, choices=allowed_langs, null=False)
+    lang = models.CharField(max_length=100, choices=allowed_langs, null=False)
     # gen_file_name generates a random string of 12 characters. "Security".
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     code = models.FileField(upload_to=gen_file_name)
@@ -60,6 +60,12 @@ class Solution(DirtyFieldsMixin, models.Model):
     char_count = models.IntegerField()
     sub_time = models.DateTimeField(default=now)
     is_correct = models.BooleanField(default=False)
+
+    is_incorrect = models.BooleanField(default=False)
+    incorrect_reason = models.CharField(max_length=300,
+            choices=incorrect_reason_options, null = True, blank = True)
+
+    assigned_score = models.IntegerField(default=0)
 
     def __str__(self):
         return str(self.prob) + ' by ' + str(self.user)
@@ -107,8 +113,6 @@ class Solution(DirtyFieldsMixin, models.Model):
     def save(self, *args, **kwargs):
         """
         Overriding save() to detect if is_correct was changed.
-        Calculates and increments the user's score EVERYTIME is_correct changes
-        from False to True.
 
         Be careful while verifying solutions.
 
@@ -118,5 +122,5 @@ class Solution(DirtyFieldsMixin, models.Model):
         super().save(*args, **kwargs)
 
         if self.is_correct and dirty:
-            self.user.score += score
-            self.user.save()
+            self.assigned_score = score
+            self.save()

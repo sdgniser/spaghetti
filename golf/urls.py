@@ -13,6 +13,7 @@ urlpatterns = [
     path('future/', FutureGolfProblemList.as_view(), name='future'),
     path('p/<pid>/', problem_detail, name='problem'),
     path('p/<pid>/leaders/', problem_leader_view, name='prob_leader'),
+    path('p/<pid>/resubmit/', resubmit_solution, name='resubmit'),
 
     path('leaders/', user_leader_view, name='user_leader'),
 
